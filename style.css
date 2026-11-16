@@ -49,10 +49,22 @@ p { font-size: clamp(1rem, 4.4vw, 1.3rem); }
 .btn-hold span { position: relative; }
 #hold-hint { opacity: 0; transition: opacity 600ms ease; } #hold-hint.ready { opacity: 1; }
 
-/* Scratch cards */
-#card { position: relative; width: min(86vw, 380px); height: min(46dvh, 280px); border-radius: 28px; background: #160d1d; border: 1px solid rgba(255, 255, 255, .1); overflow: hidden; }
-#reason-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.6rem; font-size: clamp(1.15rem, 5vw, 1.45rem); color: #f0b4be; line-height: 1.5; }
-#scratch { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; transition: opacity 700ms ease; cursor: crosshair; }
+/* Folded notes */
+#card { position: relative; width: min(86vw, 380px); }
+#note { position: relative; perspective: 1100px; border-radius: 6px; cursor: pointer; transform: rotate(-1deg); -webkit-tap-highlight-color: transparent; }
+#note:focus-visible { outline: 3px solid var(--rose); outline-offset: 6px; }
+#note.enter { animation: noteIn 600ms cubic-bezier(.3, .8, .3, 1) both; }
+#note.no-anim .note-cover { transition: none; }
+@keyframes noteIn { from { opacity: 0; transform: translateY(14px) rotate(-3deg); } to { opacity: 1; transform: rotate(-1deg); } }
+.note-paper { min-height: 210px; display: flex; align-items: center; justify-content: center; padding: 2rem 1.6rem; border-radius: 6px; background: linear-gradient(180deg, #fffaf0, #fbf1df); color: #3a2a30; box-shadow: 0 14px 30px rgba(0, 0, 0, .55), 0 0 40px rgba(232, 165, 176, .12); }
+#reason-text { font-size: clamp(1.05rem, 4.6vw, 1.3rem); line-height: 1.6; }
+.note-cover { position: absolute; inset: 0; border-radius: 6px; transform-origin: top center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem; background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 33%, rgba(120, 80, 60, .2) 33.2%, rgba(255, 255, 255, .55) 33.7%, rgba(0, 0, 0, 0) 34.2%, rgba(0, 0, 0, 0) 66%, rgba(120, 80, 60, .2) 66.2%, rgba(255, 255, 255, .55) 66.7%, rgba(0, 0, 0, 0) 67.2%), #efe0c8; box-shadow: 0 8px 20px rgba(0, 0, 0, .35); transition: transform 900ms cubic-bezier(.5, 0, .2, 1), opacity 300ms ease 650ms; }
+.note-cover > * { transition: opacity 200ms ease; }
+.note-cover .tracked { color: #7a5a62; }
+.note-seal { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #b01a2f, #5a0a14); color: #ffe9ed; font-size: 1.4rem; box-shadow: 0 5px 12px rgba(0, 0, 0, .4); animation: pulse 1.8s ease-in-out infinite; }
+#note.open { cursor: default; }
+#note.open .note-cover { transform: rotateX(-178deg); opacity: 0; pointer-events: none; }
+#note.open .note-cover > * { opacity: 0; }
 
 /* Typewriter */
 #typed { width: min(88vw, 420px); min-height: 11rem; white-space: pre-wrap; font-size: clamp(1.1rem, 4.8vw, 1.35rem); line-height: 1.7; }
@@ -79,3 +91,4 @@ p { font-size: clamp(1rem, 4.4vw, 1.3rem); }
 @media (max-height: 600px) { .mascot { display: none; } }
 @media (min-width: 768px) { html { font-size: 20px; } }
 @media (prefers-reduced-motion: reduce) { body::before, .mascot, #btn-yes, #seal, .jolt, #typed::after { animation: none; } #hearts-layer { display: none; } .screen, .env-card, .env-flap { transition-duration: 150ms; } }
+@media (prefers-reduced-motion: reduce) { .note-seal, #note.enter { animation: none; } .note-cover { transition-duration: 150ms; } }

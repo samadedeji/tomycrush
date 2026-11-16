@@ -83,36 +83,25 @@ document.addEventListener("DOMContentLoaded", () => {
   ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => hold.addEventListener(ev, () => { if (ht) { clearTimeout(ht); ht = null; hold.classList.remove("holding"); } }));
   hold.addEventListener("click", (e) => { if (e.detail === 0) go(2); });
 
-  // Scene 2: scratch cards
-  const cv = $("scratch"), ctx = cv.getContext("2d"), nextR = $("btn-next-reason");
-  let ri = 0, scratching = false, revealed = false, moves = 0;
+  // Scene 2: folded notes (tap to unfold, nothing to get wrong)
+  const note = $("note"), nextR = $("btn-next-reason");
+  let ri = 0, opened = false;
   function loadCard() {
+    opened = false; nextR.hidden = true;
+    note.classList.add("no-anim"); note.classList.remove("open", "enter");
+    note.setAttribute("aria-expanded", "false"); note.tabIndex = 0;
     $("reason-text").textContent = CONFIG.REASONS[ri];
-    const box = $("card"), w = box.clientWidth, h = box.clientHeight;
-    cv.width = w; cv.height = h; cv.style.opacity = 1; cv.style.pointerEvents = "auto";
-    revealed = false; nextR.hidden = true; moves = 0;
     $("reason-count").textContent = (ri + 1) + " of " + CONFIG.REASONS.length;
     nextR.textContent = ri === CONFIG.REASONS.length - 1 ? "Next surprise ✨" : "Next one ♡";
-    ctx.globalCompositeOperation = "source-over";
-    const g = ctx.createLinearGradient(0, 0, w, h); g.addColorStop(0, "#3b2146"); g.addColorStop(1, "#24132b");
-    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
-    for (let i = 0; i < 90; i++) { ctx.fillStyle = "rgba(255,200,215," + (Math.random() * .35).toFixed(2) + ")"; ctx.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
-    ctx.fillStyle = "#f0b4be"; ctx.font = "600 17px Quicksand, sans-serif"; ctx.textAlign = "center"; ctx.fillText("SCRATCH TO REVEAL ♡", w / 2, h / 2 + 6);
+    void note.offsetWidth; note.classList.remove("no-anim"); note.classList.add("enter");
   }
-  function cleared() {
-    const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let n = 0, t = 0;
-    for (let i = 3; i < d.length; i += 64) { t++; if (d[i] === 0) n++; }
-    return n / t;
+  function openNote() {
+    if (opened) return; opened = true; buzz(25);
+    note.classList.add("open"); note.setAttribute("aria-expanded", "true"); note.tabIndex = -1;
+    setTimeout(() => { nextR.hidden = false; }, reduce ? 200 : 900);
   }
-  function finishCard() { revealed = true; cv.style.opacity = 0; cv.style.pointerEvents = "none"; buzz(25); setTimeout(() => { nextR.hidden = false; }, 500); }
-  function scratchAt(e) {
-    const r = cv.getBoundingClientRect(); ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath(); ctx.arc(e.clientX - r.left, e.clientY - r.top, 28, 0, 7); ctx.fill();
-    if (++moves % 6 === 0 && !revealed && cleared() > 0.4) finishCard();
-  }
-  cv.addEventListener("pointerdown", (e) => { scratching = true; cv.setPointerCapture(e.pointerId); scratchAt(e); });
-  cv.addEventListener("pointermove", (e) => { if (scratching && !revealed) scratchAt(e); });
-  ["pointerup", "pointercancel"].forEach((ev) => cv.addEventListener(ev, () => { scratching = false; }));
+  note.addEventListener("click", openNote);
+  note.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openNote(); } });
   nextR.addEventListener("click", () => { if (ri < CONFIG.REASONS.length - 1) { ri++; loadCard(); } else go(3); });
   const enterReasons = () => { ri = 0; loadCard(); };
 
@@ -176,13 +165,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Scene 5: celebration
   function enterYay() {
     buzz([30, 50, 30, 50, 80]);
+    setTimeout(() => { $("btn-yay-next").hidden = false; }, 2200);
     const c = window.confetti;
-    if (c) {
+    try { if (c) {
       const colors = ["#e8a5b0", "#a3162b", "#fff4e6", "#ffb3c1", "#8b1a2b"];
       const shapes = c.shapeFromText ? ["💗", "🌸", "✨"].map((t) => c.shapeFromText({ text: t, scalar: 2 })) : undefined;
       [0, 250, 500].forEach((t) => setTimeout(() => { c({ particleCount: 110, spread: 85, origin: { y: 0.65 }, colors }); if (shapes) c({ particleCount: 24, spread: 100, origin: { y: 0.65 }, shapes, scalar: 2 }); }, t));
-    }
-    setTimeout(() => { $("btn-yay-next").hidden = false; }, 2200);
+    } } catch (e) {}
   }
   $("btn-yay-next").addEventListener("click", () => go(6));
 
@@ -215,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const c = window.confetti; if (c) c({ particleCount: 60, spread: 120, origin: { y: 0.4 }, colors: ["#e8a5b0", "#a3162b"] });
   }
 
-  const enter = { 1: enterWait, 2: enterReasons, 3: enterLetter, 4: enterAsk, 6: enterFinal };
+  const enter = { 1: enterWait, 2: enterReasons, 3: enterLetter, 4: enterAsk, 5: enterYay, 6: enterFinal };
 
   if (!reduce) {
     const layer = $("hearts-layer");
