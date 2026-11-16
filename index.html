@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Vami</title>
+<meta name="description" content="I made something for you.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="For Vami">
+<meta property="og:description" content="I made something for you.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="script.js" defer></script>
+</head>
+<body>
+<div id="hearts-layer" aria-hidden="true"></div>
+<button id="btn-back" class="chip" type="button" aria-label="Go back" hidden>←</button>
+<button id="btn-music" class="chip" type="button" aria-label="Toggle music" hidden>♪</button>
+
+<section id="s-open" class="screen is-active">
+  <div id="env"><div class="env-back"></div><div class="env-card"><span id="card-text" class="script"></span></div><div class="env-pocket"></div><div class="env-flap"></div><button id="seal" type="button" aria-label="Open the letter">♥</button></div>
+  <h1 id="open-title" class="script"></h1>
+  <p id="open-hint" class="tracked"></p>
+</section>
+
+<section id="s-wait" class="screen">
+  <div class="mascot" aria-hidden="true">🧸</div>
+  <h1 id="wait-title" class="script"></h1>
+  <div id="wait-lines"></div>
+  <button id="btn-hold" class="btn btn-hold" type="button"><span id="hold-label"></span></button>
+  <p id="hold-hint" class="tracked"></p>
+</section>
+
+<section id="s-reasons" class="screen">
+  <h1 id="reasons-title" class="script"></h1>
+  <div id="card"><div id="reason-text"></div><canvas id="scratch"></canvas></div>
+  <p id="reason-count" class="tracked"></p>
+  <button id="btn-next-reason" class="btn" type="button" hidden></button>
+</section>
+
+<section id="s-letter" class="screen">
+  <h1 id="letter-title" class="script"></h1>
+  <div id="typed" aria-live="polite"></div>
+  <button id="btn-skip" class="tracked linkish" type="button">Skip typing</button>
+  <button id="btn-letter-next" class="btn" type="button" hidden>Continue ♡</button>
+</section>
+
+<section id="s-ask" class="screen">
+  <div id="buddy" class="mascot" aria-hidden="true"></div>
+  <h1 id="question" class="script"></h1>
+  <div id="ask-area"><button id="btn-yes" class="btn" type="button"></button><button id="btn-no" class="btn btn-dim" type="button"></button><button id="btn-later" class="btn btn-quiet" type="button" hidden></button></div>
+</section>
+
+<section id="s-yay" class="screen">
+  <div class="glowbox"><div class="mascot big" aria-hidden="true">🥰</div></div>
+  <h1 id="yay-title" class="script"></h1>
+  <button id="btn-yay-next" class="btn" type="button" hidden>Final surprise ✨</button>
+</section>
+
+<section id="s-final" class="screen">
+  <h1 id="final-title" class="script glow"></h1>
+  <canvas id="heart-canvas" width="340" height="340"></canvas>
+  <p id="final-sub"></p>
+  <p id="sign" class="script"></p>
+  <a id="btn-cta" class="btn" href="#" target="_blank" rel="noopener" hidden></a>
+</section>
+
+<section id="s-later" class="screen">
+  <div class="mascot" aria-hidden="true">🌿</div>
+  <h1 id="later-title" class="script"></h1>
+  <p id="later-message"></p>
+</section>
+</body>
+</html>
