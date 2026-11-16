@@ -4,16 +4,16 @@ const CONFIG = {
   WAIT_TITLE: "Wait ",
   WAIT_LINES: ["Dear Vami,", "I made something for you.", "It took me a while to get it right.", "But you deserve the effort.", "Go through it slowly."],
   HOLD_LABEL: "Hold my hand ♡", HOLD_HINT: "press and hold",
-  REASONS_TITLE: "A few things about you",
+  REASONS_TITLE: "A few things I'd like to say first",
   REASONS: [
     "At first, you were just a voice among a thousand, indistinguishable from the many others that passed through my ears. Until I actually listened, and somewhere in the cadence of your voice, I found a melody. One that stirred the rusty strings of my heart back to life.",
     "The more I listened, the more I found myself falling in love with your words, and even more so, with the mind behind them. There is something remarkably bold about the way you think, a kind of audacity that commands admiration.
 ",
-    "Then I saw your face. ",
+    "Then I saw your face.",
     "And yes, you’re stunning. But that’s not why I’m writing this."
   ],
   LETTER_TITLE: "Before I ask",
-  LETTER: ["Vami, I’m going to be honest with you, because you deserve that.", "I’m serious about you, Vami, and I have one question."],
+  LETTER: ["Vami, I’m going to be honest with you.", "I like you, I really do.", "I’m serious about you, Vami, and I have one question."],
   QUESTION_TEXT: "Vami, I’d really like to take this seriously with you. Will you consider giving us a chance?",
   YES_LABEL: "Yes, let’s see where this goes", NO_LABEL: "No",
   NO_LABELS: ["Are you sure? ", "Think again ", "Really?? "],
