@@ -1,22 +1,23 @@
 const CONFIG = {
   HER_NAME: "Vami", YOUR_NAME: "Samuel",
   CARD_TEXT: "For Vami ♡", OPEN_TITLE: "I have something to tell you", OPEN_HINT: "tap the heart seal",
-  WAIT_TITLE: "Wait ♥",
-  WAIT_LINES: ["I made something for you.", "It took me a while to get it right.", "Because you deserve the effort.", "Go through it slowly."],
+  WAIT_TITLE: "Wait ",
+  WAIT_LINES: ["Dear Vami,", "I made something for you.", "It took me a while to get it right.", "But you deserve the effort.", "Go through it slowly."],
   HOLD_LABEL: "Hold my hand ♡", HOLD_HINT: "press and hold",
   REASONS_TITLE: "A few things about you",
   REASONS: [
-    "I love the sound of your voice.",
-    "The way you think, and the way you address things, is unlike anyone I know.",
-    "You recommended The Way I Used to Be, and I loved it. Thank you for that.",
+    "At first, you were just a voice among a thousand, indistinguishable from the many others that passed through my ears. Until I actually listened, and somewhere in the cadence of your voice, I found a melody. One that stirred the rusty strings of my heart back to life.",
+    "The more I listened, the more I found myself falling in love with your words, and even more so, with the mind behind them. There is something remarkably bold about the way you think, a kind of audacity that commands admiration.
+",
+    "Then I saw your face. ",
     "And yes, you’re stunning. But that’s not why I’m writing this."
   ],
   LETTER_TITLE: "Before I ask",
   LETTER: ["Vami, I’m going to be honest with you, because you deserve that.", "I’m serious about you, Vami, and I have one question."],
   QUESTION_TEXT: "Vami, I’d really like to take this seriously with you. Will you consider giving us a chance?",
   YES_LABEL: "Yes, let’s see where this goes", NO_LABEL: "No",
-  NO_LABELS: ["Are you sure? 🥺", "Think again 🙈", "Really?? 😭"],
-  BUDDY_FACES: ["🐱💐", "🥺", "😢", "😭"], LATER_FACE: "🤗", LATER_LABEL: "Maybe later",
+  NO_LABELS: ["Are you sure? ", "Think again ", "Really?? "],
+  BUDDY_FACES: ["", "", "", ""], LATER_FACE: "", LATER_LABEL: "Maybe later",
   LATER_TITLE: "That’s okay.", LATER_MESSAGE: "It’s fine, Vami. Take all the time you need. I’m not going anywhere.",
   YAY_TITLE: "You said yes.",
   FINAL_TITLE: "Thank you, Vami.", FINAL_SUB: "I promise to take this as seriously as I said. Tell me when you’re ready to talk.",
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = new Audio(CONFIG.MUSIC_FILE); audio.loop = true; audio.volume = 0.4;
   audio.addEventListener("canplaythrough", () => { musicBtn.hidden = false; }, { once: true });
   audio.addEventListener("error", () => { musicBtn.hidden = true; });
-  const setMusicLabel = () => { musicBtn.textContent = audio.paused ? "🔇" : "♪"; };
+  const setMusicLabel = () => { musicBtn.textContent = audio.paused ? "" : "♪"; };
   musicBtn.addEventListener("click", () => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); setMusicLabel(); });
   audio.addEventListener("play", setMusicLabel); audio.addEventListener("pause", setMusicLabel);
   setMusicLabel();
