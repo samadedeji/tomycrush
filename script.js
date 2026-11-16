@@ -1,7 +1,7 @@
 const CONFIG = {
   HER_NAME: "Vami", YOUR_NAME: "Samuel",
   CARD_TEXT: "For Vami ♡", OPEN_TITLE: "I have something to tell you", OPEN_HINT: "tap the heart seal",
-  WAIT_TITLE: "Wait ♥",
+  WAIT_TITLE: "Wait ",
   WAIT_LINES: ["Dear Vami,", "I made something for you.", "It took me a while to get it right.", "But you deserve the effort.", "Go through it slowly."],
   HOLD_LABEL: "Hold my hand ♡", HOLD_HINT: "press and hold",
   REASONS_TITLE: "A few things I'd like to say first",
@@ -17,8 +17,8 @@ const CONFIG = {
   LETTER: ["Vami, I’m going to be honest with you.", "I like you, I really do.", "I’m serious about you, Vami, and I have one question."],
   QUESTION_TEXT: "Vami, I’d really like to take this seriously with you. Will you consider giving us a chance?",
   YES_LABEL: "Yes, let’s see where this goes", NO_LABEL: "No",
-  NO_LABELS: ["Are you sure? 🥺", "Think again 🙈", "Really?? 😭"],
-  BUDDY_FACES: ["🐱💐", "🥺", "😢", "😭"], LATER_FACE: "🤗", LATER_LABEL: "Maybe later",
+  NO_LABELS: ["Are you sure? ", "Think again ", "Really?? "],
+  BUDDY_FACES: ["", "", "", ""], LATER_FACE: "", LATER_LABEL: "Maybe later",
   LATER_TITLE: "That’s okay.", LATER_MESSAGE: "It’s fine, Vami. Take all the time you need. I’m not going anywhere.",
   YAY_TITLE: "You said yes.",
   FINAL_TITLE: "Thank you, Vami.", FINAL_SUB: "I promise to take this as seriously as I said. Tell me when you’re ready to talk.",
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = new Audio(CONFIG.MUSIC_FILE); audio.loop = true; audio.volume = 0.4;
   audio.addEventListener("canplaythrough", () => { musicBtn.hidden = false; }, { once: true });
   audio.addEventListener("error", () => { musicBtn.hidden = true; });
-  const setMusicLabel = () => { musicBtn.textContent = audio.paused ? "🔇" : "♪"; };
+  const setMusicLabel = () => { musicBtn.textContent = audio.paused ? "" : "♪"; };
   musicBtn.addEventListener("click", () => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); setMusicLabel(); });
   audio.addEventListener("play", setMusicLabel); audio.addEventListener("pause", setMusicLabel);
   setMusicLabel();
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     note.setAttribute("aria-expanded", "false"); note.tabIndex = 0;
     $("reason-text").textContent = CONFIG.REASONS[ri];
     $("reason-count").textContent = (ri + 1) + " of " + CONFIG.REASONS.length;
-    nextR.textContent = ri === CONFIG.REASONS.length - 1 ? "Next surprise ✨" : "Next one ♡";
+    nextR.textContent = ri === CONFIG.REASONS.length - 1 ? "Next surprise " : "Next one ♡";
     void note.offsetWidth; note.classList.remove("no-anim"); note.classList.add("enter");
   }
   function openNote() {
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const c = window.confetti;
     try { if (c) {
       const colors = ["#e8a5b0", "#a3162b", "#fff4e6", "#ffb3c1", "#8b1a2b"];
-      const shapes = c.shapeFromText ? ["💗", "🌸", "✨"].map((t) => c.shapeFromText({ text: t, scalar: 2 })) : undefined;
+      const shapes = c.shapeFromText ? ["", "", ""].map((t) => c.shapeFromText({ text: t, scalar: 2 })) : undefined;
       [0, 250, 500].forEach((t) => setTimeout(() => { c({ particleCount: 110, spread: 85, origin: { y: 0.65 }, colors }); if (shapes) c({ particleCount: 24, spread: 100, origin: { y: 0.65 }, shapes, scalar: 2 }); }, t));
     } } catch (e) {}
   }
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function enterFinal() {
     if (initHeart()) requestAnimationFrame(loop);
-    else { const c = $("heart-canvas"); c.outerHTML = '<div class="mascot big" aria-hidden="true">💗</div>'; }
+    else { const c = $("heart-canvas"); c.outerHTML = '<div class="mascot big" aria-hidden="true"></div>'; }
     const c = window.confetti; if (c) c({ particleCount: 60, spread: 120, origin: { y: 0.4 }, colors: ["#e8a5b0", "#a3162b"] });
   }
 
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const layer = $("hearts-layer");
     for (let i = 0; i < 14; i++) {
       const h = document.createElement("span"); h.className = "heart";
-      h.textContent = ["♥", "♡", "✦", "💗"][Math.floor(Math.random() * 4)];
+      h.textContent = ["", "♡", "✦", ""][Math.floor(Math.random() * 4)];
       h.style.left = Math.random() * 100 + "%"; h.style.fontSize = 0.8 + Math.random() * 1.2 + "rem";
       h.style.opacity = (0.1 + Math.random() * 0.2).toFixed(2); h.style.animationDuration = 16 + Math.random() * 14 + "s"; h.style.animationDelay = -Math.random() * 20 + "s";
       layer.appendChild(h);
