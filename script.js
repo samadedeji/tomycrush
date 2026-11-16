@@ -6,8 +6,10 @@ const CONFIG = {
   HOLD_LABEL: "Hold my hand ♡", HOLD_HINT: "press and hold",
   REASONS_TITLE: "A few things I'd like to say first",
   REASONS: [
-    "At first, you were just a voice among a thousand, indistinguishable from the many others that passed through my ears. Until I actually listened, and somewhere in the cadence of your voice, I found a melody. One that stirred the rusty strings of my heart back to life.",
-    "The more I listened, the more I found myself falling in love with your words, and even more so, with the mind behind them. There is something remarkably bold about the way you think, a kind of audacity that commands admiration.",
+    "At first, you were just a voice among a thousand, indistinguishable from the many others that passed through my ears.",
+    "Until I actually listened, and somewhere in the cadence of your voice, I found a melody. One that stirred the rusty strings of my heart back to life.",
+    "The more I listened, the more I found myself falling in love with your words, and even more so, with the mind behind them.",
+    "There is something remarkably bold about the way you think, a kind of audacity that commands admiration.",
     "Then I saw your face.",
     "And yes, you’re stunning. But that’s not why I’m writing this."
   ],
@@ -85,10 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const cv = $("scratch"), ctx = cv.getContext("2d"), nextR = $("btn-next-reason");
   let ri = 0, scratching = false, revealed = false, moves = 0;
   function loadCard() {
+    $("reason-text").textContent = CONFIG.REASONS[ri];
     const box = $("card"), w = box.clientWidth, h = box.clientHeight;
     cv.width = w; cv.height = h; cv.style.opacity = 1; cv.style.pointerEvents = "auto";
     revealed = false; nextR.hidden = true; moves = 0;
-    $("reason-text").textContent = CONFIG.REASONS[ri];
     $("reason-count").textContent = (ri + 1) + " of " + CONFIG.REASONS.length;
     nextR.textContent = ri === CONFIG.REASONS.length - 1 ? "Next surprise ✨" : "Next one ♡";
     ctx.globalCompositeOperation = "source-over";
